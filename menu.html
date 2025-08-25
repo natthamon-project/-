@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เมนูอาหาร - Food Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ce93d8 0%, #ce93d8 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(247, 239, 239, 0.3);
+        }
+
+        .menu-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .food-item {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            max-width: 300px;
+        }
+
+        .food-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 254, 254, 0.3);
+        }
+
+        .food-image {
+            width: 250px;
+            height: 200px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .food-image:hover {
+            transform: scale(1.1);
+        }
+
+        .food-name {
+            font-size: 1.5rem;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .food-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .price {
+            color: #e74c3c;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍽️ รายการอาหารเเนะนำ</h1>
+        
+        <div class="menu-container">
+            <div class="food-item">
+                <div class="food-image" style="background-image: url('1.jpg')"></div>
+                <div class="food-name">ต้มยำกุ้ง</div>
+                <div class="food-description">น้ำต้มยำเข้มข้น เผ็ดเเซ่บ กลมกล่อม</div>
+                <div class="price">฿199</div>
+            </div>
+
+            <div class="food-item">
+                <div class="food-image" style="background-image: url('2.jpg')"></div>
+                <div class="food-name">เเกงเขียวหวาน</div>
+                <div class="food-description">หอมหวานมันกลมกล่อม</div>
+                <div class="price">฿320</div>
+            </div>
+
+            <div class="food-item">
+                <div class="food-image" style="background-image: url('3.jpg')"></div>
+                <div class="food-name">เเกงไตปลา</div>
+                <div class="food-description">รถชาติดี สดใหม่ทุกวัน</div>
+                <div class="price">฿450</div>
+            </div>
+        </div>
+    </div>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9747e35c9113731d',t:'MTc1NjA5MTM0MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

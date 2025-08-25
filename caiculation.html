@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เครื่องคิดเลขบวกเลข - Simple Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #F5E3CB 0%, #F5E3CB 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .calculator-container {
+            background: rgb(233, 211, 245);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .calculator-title {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: block;
+            color: #555;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1rem;
+            text-align: left;
+        }
+
+        .number-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            text-align: center;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: #f8f9fa;
+        }
+
+        .number-input:focus {
+            outline: none;
+            border-color: #74b9ff;
+            box-shadow: 0 0 0 3px rgba(116, 185, 255, 0.1);
+            background-color: white;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #CA9CAC 0%, #CA9CAC 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 20px 0;
+        }
+
+        .calculate-btn:hover {
+            background: linear-gradient(135deg, #ffab91 0%, #ffab91 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(116, 185, 255, 0.3);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+
+        .result-container {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            margin-top: 20px;
+        }
+
+        .result-label {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .result-value {
+            color: #0984e3;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .operation-display {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .calculator-container {
+                padding: 30px 20px;
+            }
+            
+            .calculator-title {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <h1 class="calculator-title">🧮 เครื่องคิดเลขบวกเลข</h1>
+        
+        <div class="input-group">
+            <label for="number1" class="input-label">ตัวเลขที่ 1</label>
+            <input type="number" id="number1" class="number-input" placeholder="กรุณากรอกตัวเลขที่ 1" step="any">
+        </div>
+
+        <div class="input-group">
+            <label for="number2" class="input-label">ตัวเลขที่ 2</label>
+            <input type="number" id="number2" class="number-input" placeholder="กรุณากรอกตัวเลขที่ 2" step="any">
+        </div>
+
+        <button onclick="calculateSum()" class="calculate-btn">คำนวณ</button>
+
+        <div class="result-container" id="resultContainer" style="display: none;">
+            <div class="operation-display" id="operationDisplay"></div>
+            <div class="result-label">ผลรวม</div>
+            <div class="result-value" id="resultValue">0</div>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+    </div>
+
+    <script>
+        function calculateSum() {
+            // Get input values
+            const number1 = document.getElementById('number1').value;
+            const number2 = document.getElementById('number2').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const resultContainer = document.getElementById('resultContainer');
+            const resultValue = document.getElementById('resultValue');
+            const operationDisplay = document.getElementById('operationDisplay');
+
+            // Hide previous error messages
+            errorMessage.style.display = 'none';
+            
+            // Validate inputs
+            if (number1 === '' || number2 === '') {
+                showError('กรุณากรอกตัวเลขให้ครบทั้ง 2 ช่อง');
+                resultContainer.style.display = 'none';
+                return;
+            }
+
+            // Convert to numbers
+            const num1 = parseFloat(number1);
+            const num2 = parseFloat(number2);
+
+            // Check if inputs are valid numbers
+            if (isNaN(num1) || isNaN(num2)) {
+                showError('กรุณากรอกตัวเลขที่ถูกต้อง');
+                resultContainer.style.display = 'none';
+                return;
+            }
+
+            // Calculate sum
+            const sum = num1 + num2;
+
+            // Display result
+            operationDisplay.textContent = `${num1} + ${num2} =`;
+            resultValue.textContent = sum;
+            resultContainer.style.display = 'block';
+
+            // Add animation effect
+            resultContainer.style.opacity = '0';
+            resultContainer.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                resultContainer.style.transition = 'all 0.3s ease';
+                resultContainer.style.opacity = '1';
+                resultContainer.style.transform = 'translateY(0)';
+            }, 100);
+        }
+
+        function showError(message) {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+
+        // Allow Enter key to calculate
+        document.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                calculateSum();
+            }
+        });
+
+        // Clear error message when user starts typing
+        document.getElementById('number1').addEventListener('input', function() {
+            document.getElementById('errorMessage').style.display = 'none';
+        });
+
+        document.getElementById('number2').addEventListener('input', function() {
+            document.getElementById('errorMessage').style.display = 'none';
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9747ff074425732e',t:'MTc1NjA5MjQ3NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
